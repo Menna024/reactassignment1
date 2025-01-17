@@ -1,22 +1,36 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from './MainLayout/MainLayout';
-import About from './About/About';
-import Contact from './Contact/Contact';
-import Portfolio from './Portfolio/Portfolio';
+import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import MainLayout from './MainLayout/MainLayout'
+import About from './About/About'
+import Contact from './Contact/Contact'
+import Portfolio from './Portfolio/Portfolio'
 
 function App() {
-  return (
-    <Router basename="/reactassignment1"> {/* Set the basename! */}
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<About />} />
-          <Route path="Contact" element={<Contact />} />
-          <Route path="Portfolio" element={<Portfolio />} />
-        </Route>
-      </Routes>
-    </Router>
+  const routes = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+          {
+            index: true, element: <About/>
+          },
+          {
+            path: 'Contact', element: <Contact/>
+          },
+          {
+            path: 'Portfolio', element: <Portfolio/>
+          }
+        ]
+      }
+    ]
   );
+
+
+  return (
+    <RouterProvider router={routes}>
+    </RouterProvider>
+  )
 }
 
-export default App;
+export default App
